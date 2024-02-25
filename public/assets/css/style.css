@@ -1,0 +1,231 @@
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        padding: 15px;
+    }
+
+    .logo {
+        color: #fff;
+        font-size: 24px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .nav-links {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links li {
+        margin-right: 20px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .right-links {
+        display: flex;
+        align-items: center;
+    }
+
+    .user-login {
+        margin-right: 20px;
+    }
+
+    .login-logo {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+    }
+
+    .transparent-nav {
+        background-color: rgb(43, 134, 178) !important;
+    }
+
+    /* Index style */
+    .banner-section {
+        position: relative;
+        height: 400px;
+        /* Ajustez la hauteur selon vos besoins */
+        background: url('../img/banner.jpg') center/cover no-repeat;
+        /* Remplacez 'background-image.jpg' par le chemin de votre image de fond */
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+
+    .banner-text h1 {
+        font-size: 4.125rem;
+        font-family: 'Lato', sans-serif;
+        line-height: 1.2em;
+    }
+
+    .banner-text p {
+        font-size: 18px;
+        line-height: 1.5;
+    }
+
+    .banner-section button {
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        font-size: 0.875rem;
+        line-height: 1em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: white;
+        background-color: transparent;
+        border: 2px solid white;
+
+        border-width: 1px;
+        padding: 15px 20px;
+        text-align: center;
+        transition: all .3s;
+    }
+
+    .banner-section button:hover {
+        color: black;
+        background-color: white;
+        border-color: white;
+    }
+
+
+    .slick-list {
+        width: 400px;
+        overflow: hidden;
+    }
+
+    .slick-track {
+        display: flex;
+    }
+
+    .slick-item {
+        flex: 0 0 auto;
+        margin-right: 10px;
+        cursor: grab;
+    }
+
+
+
+    .item {
+        position: relative;
+        height: 500px;
+        background-position-x: center;
+        background-position-y: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .un {
+        background-position-x: top;
+        background-position-y: right;
+    }
+
+    .deux {
+        background-position-x: left;
+        background-position-y: center;
+    }
+
+    .trois {
+        background-position-x: center;
+        background-position-y: right;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: left;
+        color: white;
+
+    }
+
+    .overlay h2 {
+        border: 0;
+        font-size: 1.5rem;
+        font-style: inherit;
+        font-weight: bolder;
+        margin: 0;
+        outline: 0;
+        padding: 0;
+        vertical-align: baseline;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    .item button {
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        font-size: 0.875rem;
+        line-height: 1em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: black;
+        background-color: white;
+        border: 2px solid white;
+
+        border-width: 1px;
+        padding: 15px 20px;
+        text-align: center;
+        transition: all .3s;
+    }
+
+    .item button:hover {
+        color: white;
+        background-color: black;
+        border-color: white;
+    }
+
+    .bann button {
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        font-size: 0.875rem;
+        line-height: 1em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: black;
+        background-color: white;
+        border: 2px solid white;
+
+        border-width: 1px;
+        padding: 15px 20px;
+        text-align: center;
+        transition: all .3s;
+    }
+
+    .bann button:hover {
+        color: white;
+        background-color: black;
+        border-color: white;
+    }
+
+    .bann {
+
+        position: relative;
+        /* height: 500px; */
+        background-position-x: center;
+        background-position-y: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+    }
