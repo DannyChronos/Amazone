@@ -5,15 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class linksController extends Controller
+class articleController extends Controller
 {
-    public function index()
-    {
-        return view('index');
-    }
-    public function mens()
-    {
-
+    
+    public function manAll(){
+        
         $manAll = DB::table('articles as a')
                 ->select('a.*','ai.nom_image','c.nom_categorie')
                 ->leftJoin(DB::raw('(SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY id_image) AS rn FROM image_articles) AS ai'), 'a.id', '=', 'ai.id')
@@ -23,11 +19,12 @@ class linksController extends Controller
                 ->distinct()
                 ->get();
 
+        return view('',compact('manAll'));
 
-        return view('mens', compact('manAll'));
     }
-    public function womens()
-    {
+
+    public function womanAll(){
+        
         $womanAll = DB::table('articles as a')
                 ->select('a.*','ai.nom_image','c.nom_categorie')
                 ->leftJoin(DB::raw('(SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY id_image) AS rn FROM image_articles) AS ai'), 'a.id', '=', 'ai.id')
@@ -37,12 +34,12 @@ class linksController extends Controller
                 ->distinct()
                 ->get();
 
+        return view('',compact('womanAll'));
 
-        return view('womens',compact('womanAll'));
     }
 
-    public function accessoires()
-    {
+    public function accessoireAll(){
+        
         $accessoireAll = DB::table('articles as a')
                 ->select('a.*','ai.nom_image','c.nom_categorie')
                 ->leftJoin(DB::raw('(SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY id_image) AS rn FROM image_articles) AS ai'), 'a.id', '=', 'ai.id')
@@ -52,20 +49,8 @@ class linksController extends Controller
                 ->distinct()
                 ->get();
 
+        return view('',compact('accessoireAll'));
 
-        return view('accessoires',compact('accessoireAll'));
-    }
-    public function about()
-    {
-        return view('about');
-    }
-    public function contact()
-    {
-        return view('contact');
     }
 
-    public function women()
-    {
-        return view('women');
-    }
 }

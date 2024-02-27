@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [linksController::class, 'index'])->name('index');
 Route::get('/mens', [linksController::class, 'mens'])->name('mens');
 Route::get('/womens', [linksController::class, 'womens'])->name('womens');
+Route::get('/accessoires', [linksController::class, 'accessoires'])->name('accessoires');
 Route::get('/women', [linksController::class, 'women'])->name('women');
 Route::get('/contact', [linksController::class, 'contact'])->name('contact');
 Route::get('/about', [linksController::class, 'about'])->name('about');
