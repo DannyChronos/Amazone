@@ -9,7 +9,7 @@ class ArticleCategories extends Migration
     public function up()
     {
         Schema::create('article_categories', function (Blueprint $table) {
-            $table->id('id_categorie');
+            $table->string('id_categorie')->primary();
             $table->string('nom_categorie');
             $table->timestamps();
         });

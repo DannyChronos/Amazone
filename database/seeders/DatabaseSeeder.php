@@ -16,20 +16,24 @@ class DatabaseSeeder extends Seeder
     {
 
         DB::table('admins')->insert([
-            'id_admin' => 'Admin01',
+            'id' => 'Admin01',
             'nom_complet' => 'John Doe',
+            'email' => 'john@gmail.com',
             'password' => Hash::make('cortana4002')
         ]);
 
         DB::table('article_categories')->insert(
             [
                 [
+                    'id_categorie' => 'homme',
                     'nom_categorie' => 'homme'
                 ],
                 [
+                    'id_categorie' => 'femme',
                     'nom_categorie' => 'femme'
                 ],
                 [
+                    'id_categorie' => 'accessoire',
                     'nom_categorie' => 'accessoire'
                 ]
             ]

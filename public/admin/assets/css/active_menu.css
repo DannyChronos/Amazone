@@ -1,0 +1,13 @@
+/* Styles personnalisés pour la classe "active" */
+.active {
+    background-color: #e1e7ee; /* Couleur de fond bleue plus foncée pour l'élément actif */
+    color: #fff; /* Couleur du texte en blanc pour l'élément actif */
+    border-left: 3px solid #e6ebf0; /* Bordure de gauche de 3 pixels avec une couleur légèrement plus foncée */
+    padding-left: 10px; /* Espacement à gauche pour l'élément actif */
+    transition: background-color 0.3s ease-in-out; /* Transition en douceur de la couleur de fond */
+}
+
+/* Changez la couleur au survol */
+.active:hover {
+    background-color: #d9e1eb; /* Couleur de fond plus foncée au survol */
+}

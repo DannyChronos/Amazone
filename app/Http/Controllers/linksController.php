@@ -9,7 +9,40 @@ class linksController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $manAll = DB::table('articles as a')
+                ->select('a.*','ai.nom_image','c.nom_categorie')
+                ->leftJoin(DB::raw('(SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY id_image) AS rn FROM image_articles) AS ai'), 'a.id', '=', 'ai.id')
+                ->join('article_categories AS c', 'a.id_categorie', '=', 'c.id_categorie')
+                ->where('ai.rn', '=', 1)
+                ->where('c.nom_categorie', '=', 'homme')
+                ->distinct()
+                ->orderByDesc('a.created_at')
+                ->limit(8)
+                ->get();
+
+                $womanAll = DB::table('articles as a')
+                ->select('a.*','ai.nom_image','c.nom_categorie')
+                ->leftJoin(DB::raw('(SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY id_image) AS rn FROM image_articles) AS ai'), 'a.id', '=', 'ai.id')
+                ->join('article_categories AS c', 'a.id_categorie', '=', 'c.id_categorie')
+                ->where('ai.rn', '=', 1)
+                ->where('c.nom_categorie', '=', 'femme')
+                ->distinct()
+                ->orderByDesc('a.created_at')
+                ->limit(8)
+                ->get();
+
+                $accessoireAll = DB::table('articles as a')
+                ->select('a.*','ai.nom_image','c.nom_categorie')
+                ->leftJoin(DB::raw('(SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY id_image) AS rn FROM image_articles) AS ai'), 'a.id', '=', 'ai.id')
+                ->join('article_categories AS c', 'a.id_categorie', '=', 'c.id_categorie')
+                ->where('ai.rn', '=', 1)
+                ->where('c.nom_categorie', '=', 'accessoire')
+                ->distinct()
+                ->orderByDesc('a.created_at')
+                ->limit(8)
+                ->get();
+
+        return view('index',compact('manAll','womanAll','accessoireAll'));
     }
     public function mens()
     {
@@ -21,6 +54,7 @@ class linksController extends Controller
                 ->where('ai.rn', '=', 1)
                 ->where('c.nom_categorie', '=', 'homme')
                 ->distinct()
+                ->orderByDesc('a.created_at')
                 ->get();
 
 
@@ -35,6 +69,7 @@ class linksController extends Controller
                 ->where('ai.rn', '=', 1)
                 ->where('c.nom_categorie', '=', 'femme')
                 ->distinct()
+                ->orderByDesc('a.created_at')
                 ->get();
 
 
@@ -50,6 +85,7 @@ class linksController extends Controller
                 ->where('ai.rn', '=', 1)
                 ->where('c.nom_categorie', '=', 'accessoire')
                 ->distinct()
+                ->orderByDesc('a.created_at')
                 ->get();
 
 

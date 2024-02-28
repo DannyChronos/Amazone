@@ -82,8 +82,7 @@
                             <div class="item-info-product ">
                                 <h4><a href="{{ $man->lien }}">{{ $man->nom }}</a></h4>
                                 <div class="info-product-price">
-                                    <span class="item_price">$45.99</span>
-                                    <del>$69.71</del>
+                                    <span class="item_price">{{ $man->prix }} FCFA</span>
                                 </div>
                                 <div
                                     class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">

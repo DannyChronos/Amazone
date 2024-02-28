@@ -9,8 +9,9 @@ class Admins extends Migration
     public function up()
     {
         Schema::create('admins', function (Blueprint $table) {
-            $table->string('id_admin')->primary();
+            $table->string('id')->primary();
             $table->string('nom_complet');
+            $table->string('email')->unique();
             $table->string('password');
             $table->timestamps();
         });

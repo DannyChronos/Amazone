@@ -8,21 +8,25 @@ use Illuminate\Support\Facades\DB;
 
 class adminController extends Controller
 {
-    public function loginAdmin(Request $request){
-        
-        $credentials = $request->only('id','password');
+    public function loginAdmin(Request $request)
+    {
 
-        if(Auth::guard('admin')->attempt($credentials)){
-            
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::guard('admin')->attempt($credentials)) {
+
             $user = Auth::guard('admin')->user();
 
             session()->put('admin_info', $user->nom_complet);
 
-            return redirect()->route('');
+            return redirect()->route('admin-home');
+        } else {
+            return redirect()->back()->with('error', 'Identifiant ou mot de passe incorrect');
         }
     }
 
-    public function logoutAdmin(Request $request){
+    public function logoutAdmin(Request $request)
+    {
         Auth::guard('admin')->logout();
 
         session()->forget('admin_info');
@@ -31,46 +35,56 @@ class adminController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('');
+        return redirect()->route('admin');
     }
 
-    public function menArticle(){
+    public function menArticle()
+    {
 
         $menArticle = DB::table('articles as a')
-                    ->join('article_categories as ac','ac.id_categorie', '=', 'a.id_categorie')
-                    ->select('a.*')
-                    ->where('ac.id_categorie', '=', 'homme')
-                    ->get();
-        
-        return view('',compact('menArticle'));
+            ->select('a.*', 'ai.nom_image', 'c.nom_categorie')
+            ->leftJoin(DB::raw('(SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY id_image) AS rn FROM image_articles) AS ai'), 'a.id', '=', 'ai.id')
+            ->join('article_categories AS c', 'a.id_categorie', '=', 'c.id_categorie')
+            ->where('ai.rn', '=', 1)
+            ->where('c.nom_categorie', '=', 'homme')
+            ->distinct()
+            ->get();
 
+        return view('admin.produitsHommes', compact('menArticle'));
     }
 
-    public function womenArticle(){
+    public function womenArticle()
+    {
 
         $womenArticle = DB::table('articles as a')
-                    ->join('article_categories as ac','ac.id_categorie', '=', 'a.id_categorie')
-                    ->select('a.*')
-                    ->where('ac.id_categorie', '=', 'femme')
-                    ->get();
-        
-        return view('',compact('womenArticle'));
+        ->select('a.*','ai.nom_image','c.nom_categorie')
+        ->leftJoin(DB::raw('(SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY id_image) AS rn FROM image_articles) AS ai'), 'a.id', '=', 'ai.id')
+        ->join('article_categories AS c', 'a.id_categorie', '=', 'c.id_categorie')
+        ->where('ai.rn', '=', 1)
+        ->where('c.nom_categorie', '=', 'femme')
+        ->distinct()
+        ->get();
 
+        return view('admin.produitsFemmes', compact('womenArticle'));
     }
 
-    public function accessoireArticle(){
+    public function accessoireArticle()
+    {
 
         $accessoireArticle = DB::table('articles as a')
-                    ->join('article_categories as ac','ac.id_categorie', '=', 'a.id_categorie')
-                    ->select('a.*')
-                    ->where('ac.id_categorie', '=', 'accessoire')
-                    ->get();
-        
-        return view('',compact('accessoireArticle'));
+        ->select('a.*','ai.nom_image','c.nom_categorie')
+        ->leftJoin(DB::raw('(SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY id_image) AS rn FROM image_articles) AS ai'), 'a.id', '=', 'ai.id')
+        ->join('article_categories AS c', 'a.id_categorie', '=', 'c.id_categorie')
+        ->where('ai.rn', '=', 1)
+        ->where('c.nom_categorie', '=', 'accessoire')
+        ->distinct()
+        ->get();
 
+        return view('admin.produitsAccessoires', compact('accessoireArticle'));
     }
 
-    public function createArticle(Request $request){
+    public function createArticle(Request $request)
+    {
 
         $id = strval(time());
 
@@ -109,5 +123,40 @@ class adminController extends Controller
             'id' => $id
         ]);
 
+        return redirect()->back()->with('success', 'Article Enregistré avec succès');
     }
+
+    public function deleteArticle($id)
+    {
+
+        DB::table('articles')->where('id', '=', $id)->delete();
+
+        return redirect()->back()->with('success', 'Article supprimer avec succès.');
+    }
+
+    public function homeAdmin(){
+
+        $men = DB::table('articles as a')
+        ->select('a.*')
+        ->join('article_categories AS c', 'a.id_categorie', '=', 'c.id_categorie')
+        ->where('c.nom_categorie', '=', 'homme')
+        ->count();
+
+        $women = DB::table('articles as a')
+        ->select('a.*')
+        ->join('article_categories AS c', 'a.id_categorie', '=', 'c.id_categorie')
+        ->where('c.nom_categorie', '=', 'femme')
+        ->count();
+
+        $accessoire = DB::table('articles as a')
+        ->select('a.*')
+        ->join('article_categories AS c', 'a.id_categorie', '=', 'c.id_categorie')
+        ->where('c.nom_categorie', '=', 'accessoire')
+        ->count();
+
+        $total = $men + $women + $accessoire;
+
+        return view('admin.home', compact('men','women','accessoire','total'));
+
+    } 
 }

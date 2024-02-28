@@ -15,7 +15,7 @@ class Articles extends Migration
             $table->string('lien');
             $table->text('description');
             $table->integer('nombre_etoiles')->nullable(true)->default(0);
-            $table->unsignedBigInteger('id_categorie');
+            $table->string('id_categorie');
             $table->foreign('id_categorie')->references('id_categorie')->on('article_categories')->onDelete('cascade');
             $table->timestamps();
         });
